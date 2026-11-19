@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BasicNavigationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(modifier = Modifier.padding(innerPadding))
+                    BasicNavigationApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -30,29 +30,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun BasicNavigationApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = Home,
         modifier = modifier
     ) {
-        // Layar Home (Praktik 1)
         composable<Home> {
             HomeScreen(navController = navController)
         }
-        // Layar Profile (Praktik 1)
         composable<Profile> {
-            ProfileScreen(
-                navController = navController,
-                onNavigateToDetail = { navController.navigate(Detail) }
-            )
+            ProfileScreen(navController = navController)
         }
-        // Layar Detail (Praktik 1)
         composable<Detail> {
             DetailScreen(navController = navController)
         }
-        // Layar Formulir Pesanan (Praktik 2)
         composable<OrderForm> {
             OrderFormScreen(
                 navController = navController,
@@ -63,7 +56,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 }
             )
         }
-        // Layar Detail Pesanan (Praktik 2)
         composable<OrderDetails> { backStackEntry ->
             val args = backStackEntry.toRoute<OrderDetails>()
             OrderDetailsScreen(
